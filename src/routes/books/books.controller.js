@@ -1,10 +1,19 @@
 //Models
-import { getBooks,getBook } from "../../models/books.model.js";
+import { getBooks,getBook,createBook} from "../../models/books.model.js";
 //CRUD
 
 //Create
-export const httpCreateBook = (request,response)=> {
-    response.status(200).send("Hello There!, You can create books here");
+export const httpCreateBook = async (request,response)=> {
+    const book = request.body;
+    try{
+        await createBook(book); 
+        return response.status(201).send('Libro creado');
+    } catch(error) {
+        console.error('No se pudo crear el libro');
+        return response.status(500).send('No se pudo crear el libro');
+    }
+    
+    
 }
 
 //Read
