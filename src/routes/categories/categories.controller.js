@@ -1,11 +1,19 @@
 //Models
-import { getCategories,getCategory } from "../../models/categories.model.js";
+import { createCategory, getCategories,getCategory } from "../../models/categories.model.js";
 
 //CRUD
 
 //Create Category
-export const httpCreateCategory = (request, response) => {
-    response.send('Aquí puedes crear un nuevo libro');
+export const httpCreateCategory = async (request, response) => {
+    try{
+        const category = request.body;
+        await createCategory(category);
+        return response.status(201).send('Categoría creada');
+
+    } catch(error){
+        console.log(error);
+        return response.status(500).send('No se pudo crear la categoría');
+    }
 }
 
 //Read Categories
